@@ -12,11 +12,13 @@ class ApiService with ChangeNotifier {
   List<Product> _products = [];
   int? _userId;
   String? _token;
+  String? _username; // เพิ่มฟิลด์ _username
   bool _isLoading = false;
 
   List<Product> get products => _products;
   int? get userId => _userId;
   String? get token => _token;
+  String? get username => _username; // เพิ่ม getter นี้ถ้ายังไม่มี
   bool get isLoading => _isLoading;
 
   Future<void> loginWithApi(String email, String password) async {
@@ -33,6 +35,7 @@ class ApiService with ChangeNotifier {
         if (data['success']) {
           _token = data['token'];
           _userId = data['user']?['user_id']; // ใช้ ? เพื่อป้องกัน null
+          _username = data['user']?['username'] ?? email; // ใช้ ? เพื่อป้องกัน null
           print('Login successful - User ID: $_userId, Token: $_token');
           notifyListeners();
         } else {

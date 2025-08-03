@@ -58,9 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Icon(Icons.person, size: 40, color: Colors.blue[800]),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    'User: top',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  Consumer<ApiService>(
+                    builder: (context, apiService, child) {
+                      return Text(
+                        'User : ${apiService.username ?? 'unknown'}',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      );
+                    },
                   ),
                 ],
               ),
